@@ -6,7 +6,6 @@ const DR = [-1, -1, 0, 1, 1, 1, 0, -1];
 const DC = [0, 1, 1, 1, 0, -1, -1, -1];
 let win;
 let won = false;
-let tie;
 const button = document.querySelector("button");
 
 let grid = Array.from(Array(rows), row => Array(columns));
@@ -35,7 +34,6 @@ function connect(type){
                             check.push(grid[new_r][new_c]);
                         }
                     }
-                    console.log(check);
                     if(check.length === 3){
                         return true;
                     }
@@ -69,14 +67,12 @@ for(let r = 0; r < rows; r++){
 
 board.addEventListener("mousedown", (e)=>{
     if(e.target.getAttribute("class") === "circle" && !(won)){
-        
-        tie = isTie();
         let spot = e.target.getAttribute("id").split(",").map( num => Number(num));
 
         const position = spot[0] === (grid.length  - 1) || grid[spot[0] + 1][spot[1]] != undefined; //if on bottom row or ontop of another circle
         const place = e.target.style.backgroundColor === "orange"; //if on a orange circle and not on another color
     
-        if(position && place && !(tie)){ //if 
+        if(position && place){ //if 
             if(player1 === true){ //could check if background color !== orange, then put, fixes replacement
                 e.target.style.backgroundColor = "turquoise";
                  //raise alert if placed circle is not above another circle
@@ -98,13 +94,16 @@ board.addEventListener("mousedown", (e)=>{
                 won = true;
                 document.querySelector("button").style.visibility = "visible";
             }
+
+            if(isTie()){
+                document.querySelector("button").style.visibility = "visible";
+            }
+
         } else{
             if(!(position)){
-                alert(`PLACE YOUR CIRCLE ON THE BOTTOMOST ROW OR ON TOP ON ANOTHER CIRCLE`)
+                alert(`PLACE YOUR CIRCLE ON THE BOTTOMOST ROW OR ON TOP ON ANOTHER CIRCLE`);
             } else if (!(place)){
-                alert(`DON'T TAKE SOMEONE ELSE'S SPOT 😠`)
-            } else if(tie){
-                document.querySelector("button").style.visibility = "visible";
+                alert(`DON'T TAKE SOMEONE ELSE'S SPOT 😠`);
             }
         }
     }
