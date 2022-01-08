@@ -72,7 +72,7 @@ aside{
 aside h1{
     font-size: 4rem;
     text-align: center;
-    color: orange;
+    color: rgb(99, 146, 60);
 }
 
 @media (orientation: portrait){

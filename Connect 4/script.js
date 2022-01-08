@@ -22,22 +22,28 @@ function isTie(){
     return true;
 }
 
-function connect(type, r, c){
-    if(["firebrick", "turquoise"].includes(type)){
-        for(let i = 0; i < DR.length; i++){
-            let pairs = [grid[r][c]]
-            for(let j = 1; j < 4; j++){
-                let new_r = r + (j * DR[i]);
-                let new_c = c + (j * DC[i]);
-                if(new_r >= 0 && new_r < rows && new_c >= 0 && new_c <= columns){
-                    pairs.push(grid[new_r][new_c]);
+function connect(type){
+    for(let r = 0; r < rows; r++){
+        for(let c = 0; c < columns; c++){
+            if(grid[r][c] !== undefined && grid[r][c] === type){
+                for(let i = 0; i < DR.length; i++){
+                    let check = [];
+                    for(let v = 1; v <= 3; v++){
+                        new_r = r + (v * DR[i]);
+                        new_c = c + (v * DC[i]);
+                        if(new_r >= 0 && new_r < rows && new_c >= 0 && new_c < columns && grid[new_r][new_c] === type){
+                            check.push(grid[new_r][new_c]);
+                        }
+                    }
+                    console.log(check);
+                    if(check.length === 3){
+                        return true;
+                    }
                 }
-            }
-            if(pairs.every(word => word === type) && pairs.length === 4){
-                return true;
             }
         }
     }
+    return false;
 }
 
 for(let r = 0; r < rows; r++){
@@ -75,12 +81,12 @@ board.addEventListener("mousedown", (e)=>{
                 e.target.style.backgroundColor = "turquoise";
                  //raise alert if placed circle is not above another circle
                 grid[spot[0]][spot[1]] = "turquoise";
-                win = connect("turquoise", spot[0], spot[1]);
+                win = connect("turquoise");
                 player1 = false;
             } else if(player1 === false){
                 e.target.style.backgroundColor = "firebrick";
                 grid[spot[0]][spot[1]] = "firebrick";
-                win = connect("firebrick", spot[0], spot[1]);
+                win = connect("firebrick");
                 player1 = true;
             }
             if(win){
