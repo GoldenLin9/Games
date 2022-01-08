@@ -106,13 +106,3 @@ button{
 .circle{
     cursor: pointer;
 }
-
-button{
-    animation: up 800ms ease-in forwards;
-}
-
-@keyframes up{
-    from{
-        visibility: visible;
-    }
-}
