@@ -11,6 +11,7 @@ let running = true;
 let flags = bombs;
 let flagging = false;
 let selection = document.querySelector("#levels");
+let flagCount = document.querySelector("#flagBox h1");
 
 let grid = Array.from(Array(rows), row => Array(columns));
 //free, clear, bomb
@@ -24,6 +25,7 @@ function settings(col, row, block, NumBombs){
     rows = row;
     blockSize = block;
     bombs = NumBombs;
+    flags = bombs;
 }
 
 createBoard();
@@ -192,6 +194,7 @@ function clear(spot){
 }
 
 function createBoard(){
+    flagCount.textContent = `Flags: ${flags}`;
     for(let r = 0; r < rows; r++){
         let row = document.createElement("div");
         row.setAttribute('class', "row");
@@ -261,7 +264,7 @@ board.addEventListener("mousedown", e =>{
             e.target.append(flag);
             flags--;
         }
-        document.querySelector("#flagBox h1").textContent = `Flags: ${flags}`;
+        flagCount.textContent = `Flags: ${flags}`;
         flagging = false;
         setTimeout(change, 100);
     }
