@@ -57,6 +57,7 @@ selection.addEventListener("click", ()=>{
     board.style.width = `calc(${blockSize} * ${columns})`;
     running = true;
     grid = Array.from(Array(rows), row => Array(columns));
+    first = true;
 })
 
 function randColor(){
@@ -237,16 +238,20 @@ board.addEventListener("click", (e)=>{
         }
 
         let win = checkWin();
-        if(win){
+        if(win && !(first)){
             alert(`YAY, you saved city from the bombs being set off!!!`)
             grid = Array.from(Array(rows), row => Array(columns));
             first = true;
+            flags = bombs;
+            flagCount.textContent = `Flags: ${flags}`;
             clean();
         }
     }
 
 // set timer, reset game, bomb flashing, Leaderboard for how fast? timer, resets whenever change difficulty or win
 // save princess peach mario vs bowser
+//first click of when changing difficulty says i saved city
+//hover opacity can see background
 });
 
 board.addEventListener("mousedown", e =>{
