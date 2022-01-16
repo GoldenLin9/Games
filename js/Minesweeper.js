@@ -16,9 +16,11 @@ let hBlockMultiplier = 0.75;
 let vBlockMultiplier = 1.8;
 const mql = window.matchMedia("(min-height: 830px)");
 const mql2 = window.matchMedia("(orientation:portrait)");
+
+let startTime;
 let stopwatch;
 let time = document.querySelector("#timer p")
-let miliseconds = 0;
+let milliseconds = 0;
 let seconds = 0;
 let minutes = 0;
 
@@ -74,26 +76,30 @@ function newGame(){
     flagCount.textContent = `Flags: ${flags}`;
 
     clearInterval(stopwatch);
-    miliseconds = 0;
+    milliseconds = 0;
     seconds = 0;
     minutes = 0;
     time.textContent = `0:00:000`;
 }
-
+//
 function timer(){
-    if(miliseconds++ >= 1000){
-        miliseconds = 0;
-        if(seconds++ >= 60){
-            seconds = 0;
-            minutes ++;
-        } else{
-            seconds ++;
-        }
-    }else {
-        miliseconds ++;
-    }
+    let currTime = new Date;
 
-    time.textContent = `${minutes}:${seconds}:${miliseconds}`;
+    let difference = Array.from((currTime - startTime).toString());
+    milliseconds = Number(difference.slice(difference.length-3, difference.length).join(""));
+
+    let a;
+    if(difference.length <= 4){
+        a = difference.length-4;
+    } else{
+        a = difference.length-5;
+    }
+    seconds = Number(difference.slice(a, difference.length-3).join(""));
+    if(seconds >= ((minutes+1) *60)){
+        minutes++
+    }
+    seconds -= (minutes * 60)
+    time.textContent = `${minutes}:${seconds}:${milliseconds}`;
 }
 
 selection.addEventListener("click", ()=>{
@@ -330,7 +336,7 @@ function end(condition){
             (minutes === 1) ? text.textContent += `${minutes} minute `: text.textContent += `${minutes} minutes `;
         }
         (seconds === 1) ? text.textContent += `${seconds} second and`: text.textContent += `${seconds} seconds and`;
-        text.textContent += ` ${miliseconds} milisecods`;
+        text.textContent += ` ${milliseconds} milisecods`;
         btn.style.backgroundColor = "green";
         text.style.color = "green";
     }
@@ -361,6 +367,7 @@ function explode(){
     //BOOM! The city exploded : (
     running = false;
     end("lose");
+    clearInterval(stopwatch);
 }
 
 board.addEventListener("click", (e)=>{
@@ -378,6 +385,7 @@ board.addEventListener("click", (e)=>{
         if(first){
             plantBombs(bombs, blockSpot);
             first = false;
+            startTime = new Date;
             stopwatch = setInterval(timer, 1);
         }
     
@@ -401,8 +409,6 @@ board.addEventListener("click", (e)=>{
 
 // set timer, reset game, bomb flashing, Leaderboard for how fast? timer, resets whenever change difficulty or win
 // save princess peach mario vs bowser
-//hover opacity can see background
-//end game screen
 });
 
 board.addEventListener("mousedown", e =>{
