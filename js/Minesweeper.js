@@ -385,16 +385,21 @@ function end(condition){
             (minutes === 1) ? text.textContent += `${minutes} minute `: text.textContent += `${minutes} minutes `;
         }
         (seconds === 1) ? text.textContent += `${seconds} second and`: text.textContent += `${seconds} seconds and`;
-        text.textContent += ` ${milliseconds} millisecods`;
+        text.textContent += ` ${milliseconds} milliseconds`;
         btn.style.backgroundColor = "lawngreen";
         text.style.color = "lawngreen";
     }
 
-    if(mql.match){
-        text.style.fontSize = "2rem";
-    } else{
-        text.style.fontSize = "5rem";
+    function matchings(x){
+        if(x.matches){
+            text.style.fontSize = "5rem"; //on big screen at least 830px or bigger
+        } else{
+            text.style.fontSize = "3rem"; //on small screen
+        }
     }
+
+    let x = window.matchMedia("(min-height: 900px)");
+    matchings(x);
 
     endingScreen.append(text);
     endingScreen.append(btn);
