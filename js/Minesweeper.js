@@ -109,6 +109,8 @@ themes.addEventListener("click", ()=>{
     if(selected.textContent === "Mario"){
         document.querySelector("html").style.backgroundColor = "brown";
         document.querySelector("html").style.backgroundImage = `url(../img/marioB.jpg)`;
+        BGcolor1 = "rgb(67, 176, 71)";
+        BGcolor2 = "rgb(251, 208, 0)";
     } else if(selected.textContent === "Classic"){
         document.querySelector("html").style.backgroundImage = "";
         document.querySelector("html").style.backgroundColor = "rgb(189, 189, 189)";
@@ -461,7 +463,7 @@ board.addEventListener("click", (e)=>{
         }
     }
 
-// set timer, reset game, bomb flashing, Leaderboard for how fast? timer, resets whenever change difficulty or win
+// bomb flashing, Leaderboard for how fast?
 // save princess peach mario vs bowser
 });
 
