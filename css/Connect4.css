@@ -1,3 +1,8 @@
+:root{
+    --color2: rgba(0,0,0,0.5);
+    --color1: rgba(0,0,0,0);
+}
+
 html{
     background-color: orange;
     position: relative;
@@ -62,6 +67,23 @@ header h1{
     border-radius: 100%;
     top: 30vh;
     display: grid;
+}
+
+#player2::after, #player1::after{
+    content: "";
+    position: absolute;
+    background-color: var(--color);
+    width: 100%;
+    height: 100%;
+    border-radius: 100%;
+}
+
+#player2::after{
+    background-color: var(--color2);
+}
+
+#player1::after{
+    background-color: var(--color1);
 }
 
 aside{
