@@ -250,6 +250,33 @@ function plantBombs(bombs, spot){
                 num.setAttribute("class", "num");
                 let numBlock = document.getElementById(`${r},${c}`);
                 num.textContent = `${grid[r][c]}`;
+
+                switch(grid[r][c]){
+                    case 1:
+                        num.style.color = "blue";
+                        break;
+                    case 2:
+                        num.style.color = "green";
+                        break;
+                    case 3:
+                        num.style.color = "red";
+                        break;
+                    case 4:
+                        num.style.color = "purple";
+                        break;
+                    case 5:
+                        num.style.color = "maroon";
+                        break;
+                    case 6:
+                        num.style.color = "turquoise";
+                        break;
+                    case 7:
+                        num.style.color = "black";
+                        break;
+                    case 8:
+                        num.style.color = "gray";
+                        break;
+                }
                 numBlock.append(num);
             }
         }
