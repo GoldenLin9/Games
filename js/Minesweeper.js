@@ -324,12 +324,12 @@ function end(condition){
         btn.style.backgroundColor = "red";
         text.style.color = "red";
     } else {
-        text.textContent = `YAY, you saved city from the bombs being set off in `;
+        text.textContent = `Hip-Hip Hooray, you saved city from the bombs being set off in `;
         if(minutes !== 0){
             (minutes === 1) ? text.textContent += `${minutes} minute `: text.textContent += `${minutes} minutes `;
         }
         (seconds === 1) ? text.textContent += `${seconds} second and`: text.textContent += `${seconds} seconds and`;
-        text.textContent += ` ${milliseconds} milisecods`;
+        text.textContent += ` ${milliseconds} milisecods!!!`;
         btn.style.backgroundColor = "green";
         text.style.color = "green";
     }
