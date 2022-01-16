@@ -471,9 +471,9 @@ board.addEventListener("mousedown", e =>{
     console.log(e.target);
     //not cleared/free on grid and not class num
     if(running && (e.button === 2 || flagging) && !(e.target.style.backgroundImage === "none" || e.target.getAttribute("class") === "num")){
-        let taken = e.target.getAttribute("class") === "flag";
+        let taken = e.target.querySelector(".flag");
         if(taken){
-            e.target.remove();
+            taken.remove();
             flags++;
         }else if(flags > 0){
             let flag = document.createElement("img");
