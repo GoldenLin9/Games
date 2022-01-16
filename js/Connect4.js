@@ -7,6 +7,7 @@ const DC = [0, 1, 1, 1, 0, -1, -1, -1];
 let win;
 let won = false;
 const button = document.querySelector("button");
+let root = document.documentElement;
 
 let grid = Array.from(Array(rows), row => Array(columns));
 
@@ -79,11 +80,21 @@ board.addEventListener("mousedown", (e)=>{
                 grid[spot[0]][spot[1]] = "turquoise";
                 win = connect("turquoise");
                 player1 = false;
+
+                if(!(win) && !(player1)){
+                    root.style.setProperty("--color2", "rgba(0,0,0,0)");
+                    root.style.setProperty("--color1", "rgba(0,0,0,0.5)");
+                }
             } else if(player1 === false){
                 e.target.style.backgroundColor = "firebrick";
                 grid[spot[0]][spot[1]] = "firebrick";
                 win = connect("firebrick");
                 player1 = true;
+
+                if(!(win) && player1){
+                    root.style.setProperty("--color1", "rgba(0,0,0,0)");
+                    root.style.setProperty("--color2", "rgba(0,0,0,0.5)");
+                }
             }
             if(win){
                 if(!(player1)){
@@ -97,6 +108,7 @@ board.addEventListener("mousedown", (e)=>{
 
             if(isTie()){
                 document.querySelector("button").style.visibility = "visible";
+                (player1) ? root.style.setProperty("--color1", "rgba(0,0,0,0.5)"):root.style.setProperty("--color2", "rgba(0,0,0,0.5)");
             }
 
         } else{
