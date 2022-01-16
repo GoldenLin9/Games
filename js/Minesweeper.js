@@ -468,6 +468,7 @@ board.addEventListener("click", (e)=>{
 });
 
 board.addEventListener("mousedown", e =>{
+    console.log(e.target);
     //not cleared/free on grid and not class num
     if(running && (e.button === 2 || flagging) && !(e.target.style.backgroundImage === "none" || e.target.getAttribute("class") === "num")){
         let taken = e.target.getAttribute("class") === "flag";
@@ -489,8 +490,8 @@ board.addEventListener("mousedown", e =>{
             }, 200)
         }
         flagCount.textContent = `Flags: ${flags}`;
-    } else if(running && e.target.getAttribute("class") === "num"){
-        let spot = e.target.parentElement.getAttribute("id").split(",").map(num => Number(num));
+    } else if(running && e.target.querySelector(".num")){
+        let spot = e.target.getAttribute("id").split(",").map(num => Number(num));
         let numSpot = Number(e.target.textContent)
         chord(numSpot, spot);
         let win = checkWin();
