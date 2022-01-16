@@ -10,12 +10,15 @@ let first = true;
 let running = true;
 let flags = bombs;
 let flagging = false;
-let selection = document.querySelector("#levels");
+let gameMode = document.querySelector("#levels");
+let themes = document.querySelector("#themes")
 let flagCount = document.querySelector("#flagBox h1");
 let hBlockMultiplier = 0.75;
 let vBlockMultiplier = 1.8;
 const mql = window.matchMedia("(min-height: 830px)");
 const mql2 = window.matchMedia("(orientation:portrait)");
+let BGcolor1 = "rgb(67, 176, 71)";
+let BGcolor2 = "rgb(251, 208, 0)";
 
 let startTime;
 let stopwatch;
@@ -96,9 +99,28 @@ function timer(){
     time.textContent = `${minutes}:${seconds}:${milliseconds}`;
 }
 
-selection.addEventListener("click", ()=>{
-    selection.style.backgroundColor = selection.selectedOptions[0].value;
-    let level = selection.selectedOptions[0].textContent;
+document.querySelector("html").style.backgroundColor = "brown";
+document.querySelector("html").style.backgroundImage = `url(../img/marioB.jpg)`;
+
+themes.addEventListener("click", ()=>{
+    let selected = themes.selectedOptions[0]
+    themes.style.backgroundColor = selected.value;
+
+    if(selected.textContent === "Mario"){
+        document.querySelector("html").style.backgroundColor = "brown";
+        document.querySelector("html").style.backgroundImage = `url(../img/marioB.jpg)`;
+    } else if(selected.textContent === "Classic"){
+        document.querySelector("html").style.backgroundImage = "";
+        document.querySelector("html").style.backgroundColor = "rgb(189, 189, 189)";
+        BGcolor1 = "rgb(189, 189, 189)";
+        BGcolor2 = "rgb(189, 189, 189)";
+    }
+    newGame();
+});
+
+gameMode.addEventListener("click", ()=>{
+    gameMode.style.backgroundColor = gameMode.selectedOptions[0].value;
+    let level = gameMode.selectedOptions[0].textContent;
     switch(level){
         case "easy":
             settings(10, 8, "5vw", 10);
@@ -266,11 +288,18 @@ function createBoard(){
             let block = document.createElement("div");
             block.style.width = blockSize;
             block.style.height = blockSize;
-            (r % 2 === 0 && c % 2 === 1) ? block.style.backgroundColor = "rgb(67, 176, 71)": (r % 2 === 1 && c % 2 === 0) ? block.style.backgroundColor = "rgb(67, 176, 71)": block.style.backgroundColor = 
-            "rgb(251, 208, 0)";
+            (r % 2 === 0 && c % 2 === 1) ? block.style.backgroundColor = `${BGcolor1}`: (r % 2 === 1 && c % 2 === 0) ? block.style.backgroundColor = `${BGcolor1}`: block.style.backgroundColor = 
+            `${BGcolor2}`;
             block.style.backgroundSize = blockSize;
             block.setAttribute("class", "block");
             block.setAttribute("id", `${r},${c}`);
+
+            if(themes.selectedIndex === 0){
+                block.style.backgroundImage = `url(../img/block.png)`
+            } else if(themes.selectedIndex === 1){
+                block.style.backgroundImage = `url(../img/tile.png)`;
+                block.style.border = "2px solid grey";
+            }
             row.append(block);
         }
         board.append(row);
@@ -423,7 +452,7 @@ board.addEventListener("mousedown", e =>{
             flagCount.style.color = "red";
             setTimeout(()=>{
                 flagCount.style.color = "black";
-            }, 300)
+            }, 200)
         }
         flagCount.textContent = `Flags: ${flags}`;
     } else if(running && e.target.getAttribute("class") === "num"){
