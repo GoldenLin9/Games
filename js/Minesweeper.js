@@ -81,20 +81,14 @@ function newGame(){
     minutes = 0;
     time.textContent = `0:00:000`;
 }
-//
+
 function timer(){
     let currTime = new Date;
 
     let difference = Array.from((currTime - startTime).toString());
     milliseconds = Number(difference.slice(difference.length-3, difference.length).join(""));
 
-    let a;
-    if(difference.length <= 4){
-        a = difference.length-4;
-    } else{
-        a = difference.length-5;
-    }
-    seconds = Number(difference.slice(a, difference.length-3).join(""));
+    seconds = Number(difference.slice(0, difference.length-3).join(""));
     if(seconds >= ((minutes+1) *60)){
         minutes++
     }
@@ -301,7 +295,6 @@ function chord(bombNum, coordinate){
                     if(place.querySelector(".bomb") && !(place.querySelector(".flag"))){
                         allGood = false;
                     } else if(!(place.querySelector(".flag")) && place.style.backgroundImage !== "none"){
-                        console.log(newR,newC);
                         clear([newR,newC]);
                     }
                 }
