@@ -391,7 +391,7 @@ function end(condition){
     }
 
     if(mql.match){
-        text.style.fontSize = "3rem";
+        text.style.fontSize = "2rem";
     } else{
         text.style.fontSize = "5rem";
     }
