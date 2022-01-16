@@ -41,7 +41,7 @@ html{
 }
 
 .bomb{
-    visibility: visible;
+    visibility: hidden;
 }
 
 main{
