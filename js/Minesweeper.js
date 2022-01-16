@@ -5,13 +5,22 @@ let rows = 8;
 let blockSize = "5vw";
 let bombs = 10;
 const DR = [-1, -1, 0, 1, 1, 1, 0, -1];
-const DC = [0, 1, 1, 1, 0, -1, -1, -1]
+const DC = [0, 1, 1, 1, 0, -1, -1, -1];
 let first = true;
 let running = true;
 let flags = bombs;
 let flagging = false;
 let selection = document.querySelector("#levels");
 let flagCount = document.querySelector("#flagBox h1");
+let hBlockMultiplier = 0.75;
+let vBlockMultiplier = 1.8;
+const mql = window.matchMedia("(min-height: 830px)");
+const mql2 = window.matchMedia("(orientation:portrait)");
+let stopwatch;
+let time = document.querySelector("#timer p")
+let miliseconds = 0;
+let seconds = 0;
+let minutes = 0;
 
 let grid = Array.from(Array(rows), row => Array(columns));
 //free, clear, bomb
@@ -28,7 +37,64 @@ function settings(col, row, block, NumBombs){
     flags = bombs;
 }
 
+function changeBlockSize(mql){
+    if(mql.matches){
+        blockSize = `${Number(blockSize.split("vw")[0]) * hBlockMultiplier}vw`;
+        
+    }
+}
+
+function changeOrientation(mql2){
+    if(mql2.matches){
+        tempR = rows;
+        rows = columns;
+        columns = tempR;
+        blockSize = `${Number(blockSize.split("vw")[0]) * vBlockMultiplier}vw`;
+    }
+}
+
+changeBlockSize(mql);
+changeOrientation(mql2);
+mql.addEventListener("change", changeBlockSize);
+mql2.addEventListener("change", changeOrientation);
+
 createBoard();
+
+function newGame(){
+    while(board.firstChild){
+        board.removeChild(board.firstChild);
+    }
+
+    createBoard();
+    board.style.width = `calc(${blockSize} * ${columns})`;
+    running = true;
+    grid = Array.from(Array(rows), row => Array(columns));
+    first = true;
+    flags = bombs;
+    flagCount.textContent = `Flags: ${flags}`;
+
+    clearInterval(stopwatch);
+    miliseconds = 0;
+    seconds = 0;
+    minutes = 0;
+    time.textContent = `0:00:000`;
+}
+
+function timer(){
+    if(miliseconds++ >= 1000){
+        miliseconds = 0;
+        if(seconds++ >= 60){
+            seconds = 0;
+            minutes ++;
+        } else{
+            seconds ++;
+        }
+    }else {
+        miliseconds ++;
+    }
+
+    time.textContent = `${minutes}:${seconds}:${miliseconds}`;
+}
 
 selection.addEventListener("click", ()=>{
     selection.style.backgroundColor = selection.selectedOptions[0].value;
@@ -50,15 +116,12 @@ selection.addEventListener("click", ()=>{
             settings(33,17, "2.3vw", 150);
             break;
     }
-    while(board.firstChild){
-        board.removeChild(board.firstChild);
-    }
-    createBoard();
-    board.style.width = `calc(${blockSize} * ${columns})`;
-    running = true;
-    grid = Array.from(Array(rows), row => Array(columns));
-    first = true;
-})
+    changeBlockSize(mql);
+    changeOrientation(mql2)
+
+    newGame();
+});
+
 
 function randColor(){
     return Math.floor(Math.random() * 256);
@@ -118,17 +181,6 @@ function checkWin(){
     return true;
 }
 
-function clean(){
-    for(let r = 0; r < rows; r++){
-        for(let c = 0; c< columns; c++){
-            let square = document.getElementById(`${r},${c}`);
-            square.textContent = "";
-            square.style.backgroundImage = `url(../img/block.png)`;
-            //might have a bomb problem since i didnt' delete pic
-        }
-    }
-}
-
 function plantBombs(bombs, spot){
     firstClear(spot);
     const coordinates = [];
@@ -164,6 +216,22 @@ function plantBombs(bombs, spot){
             }
         }
     }
+
+    for(let r = 0; r < rows; r++){
+        for(let c = 0; c < columns; c++){
+            if(Number.isFinite(grid[r][c])){
+                let num = document.createElement("div");
+                num.style.fontSize = blockSize;
+                num.style.width = blockSize;
+                num.style.height = blockSize;
+                num.style.lineHeight = blockSize;
+                num.setAttribute("class", "num");
+                let numBlock = document.getElementById(`${r},${c}`);
+                num.textContent = `${grid[r][c]}`;
+                numBlock.append(num);
+            }
+        }
+    }
 }
 
 function clear(spot){
@@ -171,16 +239,11 @@ function clear(spot){
     if(Number.isFinite(grid[spot[0]][spot[1]])){
         open.style.backgroundImage = "none";
 
-        let num = document.createElement("div");
-        num.style.fontSize = blockSize;
-        num.setAttribute("class", "num");
-        let numBlock = document.getElementById(`${spot[0]},${spot[1]}`);
-        num.textContent = `${grid[spot[0]][spot[1]]}`;
-        numBlock.append(num);
+        if(open.querySelector(".num")){
+            open.querySelector(".num").style.visibility = "visible";
+        }
 
         grid[spot[0]][spot[1]] = "cleared";
-
-        return
     } else{
         open.style.backgroundImage = "none";
         grid[spot[0]][spot[1]] = "cleared";
@@ -214,53 +277,142 @@ function createBoard(){
     }
 }
 
+function chord(bombNum, coordinate){
+    let flagCount = 0;
+    let allGood = true;
+
+    for(let i = 0; i<2; i++){
+        for(let d = 0; d <DR.length; d++){
+            let newR = coordinate[0] + DR[d];
+            let newC = coordinate[1] + DC[d];
+            if(newR >= 0 && newR < rows && newC >= 0 && newC < columns){
+                let place = document.getElementById(`${newR},${newC}`);
+                if(i === 0){
+                    if(place.querySelector(".flag")){
+                        flagCount ++;
+                    }
+                } else if(i === 1 && flagCount === bombNum){
+                    if(place.querySelector(".bomb") && !(place.querySelector(".flag"))){
+                        allGood = false;
+                    } else if(!(place.querySelector(".flag")) && place.style.backgroundImage !== "none"){
+                        console.log(newR,newC);
+                        clear([newR,newC]);
+                    }
+                }
+            }
+        }
+    }
+
+    if(!(allGood)){
+        explode()
+    }
+}
+
+function end(condition){
+    let endingScreen = document.createElement("div");
+    endingScreen.setAttribute("id", "ending");
+    endingScreen.style.width = `calc(${blockSize} * ${columns})`;
+    endingScreen.style.height = `calc(${blockSize} * ${rows})`
+    endingScreen.style.backgroundColor = `rgba(0,0,0,0.7)`;
+    let text = document.createElement("p");
+    text.setAttribute("id", "text");
+
+    let btn = document.createElement("button");
+    btn.setAttribute("id", "endBtn");
+    
+    if(condition === "lose"){
+        text.textContent = "BOOM! The city exploded : (";
+        btn.style.backgroundColor = "red";
+        text.style.color = "red";
+    } else {
+        text.textContent = `YAY, you saved city from the bombs being set off in `;
+        if(minutes !== 0){
+            (minutes === 1) ? text.textContent += `${minutes} minute `: text.textContent += `${minutes} minutes `;
+        }
+        (seconds === 1) ? text.textContent += `${seconds} second and`: text.textContent += `${seconds} seconds and`;
+        text.textContent += ` ${miliseconds} milisecods`;
+        btn.style.backgroundColor = "green";
+        text.style.color = "green";
+    }
+
+    if(mql.match){
+        text.style.fontSize = "3rem";
+    } else{
+        text.style.fontSize = "5rem";
+    }
+
+    endingScreen.append(text);
+    endingScreen.append(btn);
+    document.querySelector("#grid").append(endingScreen);
+
+    btn.addEventListener("click", ()=>{
+        endingScreen.remove();
+        newGame();
+    });
+}
+
+function explode(){
+    const allBombs = document.querySelectorAll(".bomb");
+    for(let bomb of allBombs){
+        bomb.style.visibility = "visible";
+        bomb.parentElement.style.backgroundImage = "none";
+        bomb.parentElement.style.backgroundColor = `rgb(${randColor()},${randColor()},${randColor()})`;
+    }
+    //BOOM! The city exploded : (
+    running = false;
+    end("lose");
+}
+
 board.addEventListener("click", (e)=>{
     if(running && btn.style.backgroundColor !== "red"){
-        let spot = e.target.getAttribute("id").split(",").map(num => Number(num));
+
+        let blockSpot;
+        let numSpot;
+
+        if(e.target.getAttribute("id") !== null){
+            blockSpot = e.target.getAttribute("id").split(",").map(num => Number(num));
+        } else if(e.target.getAttribute("class") !== null){
+            numSpot = Number(e.target.textContent)
+        }
 
         if(first){
-            plantBombs(bombs, spot);
+            plantBombs(bombs, blockSpot);
             first = false;
+            stopwatch = setInterval(timer, 1);
         }
     
-        if(grid[spot[0]][spot[1]] === "bomb"){
-            const allBombs = document.querySelectorAll(".bomb");
-            console.log(allBombs);
-            for(let bomb of allBombs){
-                bomb.style.visibility = "visible";
-                bomb.parentElement.style.backgroundImage = "none";
-                bomb.parentElement.style.backgroundColor = `rgb(${randColor()},${randColor()},${randColor()})`;
-            }
-            alert(`BOOM! The city exploded : (`)
-            running = false;
+        if(blockSpot !== undefined && grid[blockSpot[0]][blockSpot[1]] === "bomb"){
+            clearInterval(stopwatch);
+            explode(); //aka lose
+        } else if(numSpot){
+            let spot = e.target.parentElement.getAttribute("id").split(",").map(num => Number(num));
+            //if the number of flags === the number that you clicked, aka num Spot, then call clear(), incorrect chording kills you
+            chord(numSpot, spot);
         } else{
-            clear(spot);
+            clear(blockSpot);
         }
 
         let win = checkWin();
         if(win && !(first)){
-            alert(`YAY, you saved city from the bombs being set off!!!`)
-            grid = Array.from(Array(rows), row => Array(columns));
-            first = true;
-            flags = bombs;
-            flagCount.textContent = `Flags: ${flags}`;
-            clean();
+            clearInterval(stopwatch);
+            end("win");
         }
     }
 
 // set timer, reset game, bomb flashing, Leaderboard for how fast? timer, resets whenever change difficulty or win
 // save princess peach mario vs bowser
-//first click of when changing difficulty says i saved city
 //hover opacity can see background
+//end game screen
 });
 
 board.addEventListener("mousedown", e =>{
-    if(running && (e.button === 2 || flagging)){
+    //not cleared/free on grid and not class num
+    if(running && (e.button === 2 || flagging) && !(e.target.style.backgroundImage === "none" || e.target.getAttribute("class") === "num")){
         let taken = e.target.getAttribute("class") === "flag";
         if(taken){
             e.target.remove();
             flags++;
-        } else if(flags > 0){
+        }else if(flags > 0){
             let flag = document.createElement("img");
             flag.setAttribute("src", "../img/flag.png");
             flag.setAttribute("class", "flag");
@@ -270,14 +422,12 @@ board.addEventListener("mousedown", e =>{
             flags--;
         }
         flagCount.textContent = `Flags: ${flags}`;
-        flagging = false;
-        setTimeout(change, 100);
+    } else if(running && e.target.getAttribute("class") === "num"){
+        let spot = e.target.parentElement.getAttribute("id").split(",").map(num => Number(num));
+        let numSpot = Number(e.target.textContent)
+        chord(numSpot, spot);
     }
 });
-
-function change(){
-    btn.style.backgroundColor = "white";
-}
 
 btn.addEventListener("click", ()=>{
     if(!(flagging)){
