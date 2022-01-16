@@ -426,6 +426,11 @@ board.addEventListener("mousedown", e =>{
         let spot = e.target.parentElement.getAttribute("id").split(",").map(num => Number(num));
         let numSpot = Number(e.target.textContent)
         chord(numSpot, spot);
+        let win = checkWin();
+        if(win && !(first)){
+            clearInterval(stopwatch);
+            end("win");
+        }
     }
 });
 
