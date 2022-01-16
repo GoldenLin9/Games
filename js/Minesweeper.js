@@ -329,9 +329,9 @@ function end(condition){
             (minutes === 1) ? text.textContent += `${minutes} minute `: text.textContent += `${minutes} minutes `;
         }
         (seconds === 1) ? text.textContent += `${seconds} second and`: text.textContent += `${seconds} seconds and`;
-        text.textContent += ` ${milliseconds} millisecods!!!`;
-        btn.style.backgroundColor = "green";
-        text.style.color = "green";
+        text.textContent += ` ${milliseconds} millisecods`;
+        btn.style.backgroundColor = "lawngreen";
+        text.style.color = "lawngreen";
     }
 
     if(mql.match){
@@ -419,6 +419,11 @@ board.addEventListener("mousedown", e =>{
             flag.style.height = blockSize;
             e.target.append(flag);
             flags--;
+        } else if(flags <= 0){
+            flagCount.style.color = "red";
+            setTimeout(()=>{
+                flagCount.style.color = "black";
+            }, 300)
         }
         flagCount.textContent = `Flags: ${flags}`;
     } else if(running && e.target.getAttribute("class") === "num"){
