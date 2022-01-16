@@ -387,7 +387,7 @@ function end(condition){
             (minutes === 1) ? text.textContent += `${minutes} minute `: text.textContent += `${minutes} minutes `;
         }
         (seconds === 1) ? text.textContent += `${seconds} second and`: text.textContent += `${seconds} seconds and`;
-        text.textContent += ` ${milliseconds} milliseconds`;
+        text.textContent += ` ${milliseconds} milliseconds!!!`;
         btn.style.backgroundColor = "lawngreen";
         text.style.color = "lawngreen";
     }
