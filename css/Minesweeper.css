@@ -8,11 +8,9 @@ header h1{
 }
 
 html{
-    background-image: url("../img/mario.jpg");
-    background-repeat: repeat-x;
-    background-size: auto 100vh;
+    background-size: 100vw 100vh;
     background-position: center top;
-    background-color: burlywood;
+    background-repeat: no-repeat;
 }
 
 .row{
@@ -24,8 +22,8 @@ html{
     justify-content: center;
     align-items: center;
     position: relative;
-    background-image: url(../img/block.png);
     cursor: pointer;
+    box-sizing: border-box;
 }
 
 .block:hover{
@@ -80,6 +78,10 @@ main{
     transform: scale(0.75);
 }
 
+#flagBox{
+    margin-top: 2vh;
+}
+
 #flagBox div{
     text-align: center;
 }
@@ -100,6 +102,10 @@ option{
 }
 
 #ez{
+    background-color: lightgreen;
+}
+
+#levels{
     background-color: lightgreen;
 }
 
@@ -155,8 +161,25 @@ option{
 #timer p{
     text-align: center;
     font-size: 1.75rem;
+
 }
 
 #ending p{
     margin: 0;
+}
+
+#themes-container{
+    text-align: center;
+}
+
+#mario{
+    background-color: forestgreen;
+}
+
+#classic{
+    background-color: grey;
+}
+
+#themes{
+    background-color: forestgreen;
 }
