@@ -102,7 +102,7 @@ function timer(){
 document.querySelector("html").style.backgroundColor = "brown";
 document.querySelector("html").style.backgroundImage = `url(../img/marioB.jpg)`;
 
-themes.addEventListener("click", ()=>{
+themes.addEventListener("change", ()=>{
     let selected = themes.selectedOptions[0]
     themes.style.backgroundColor = selected.value;
 
@@ -120,7 +120,7 @@ themes.addEventListener("click", ()=>{
     newGame();
 });
 
-gameMode.addEventListener("click", ()=>{
+gameMode.addEventListener("change", ()=>{
     gameMode.style.backgroundColor = gameMode.selectedOptions[0].value;
     let level = gameMode.selectedOptions[0].textContent;
     switch(level){
