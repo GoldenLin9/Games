@@ -1,17 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <div>
-        <h1><a href = "Minesweeper.html">Minesweeper Here</a></h1>
-    </div>
-    <div>
-        <h1><a href = "Connect4.html">Connect4 Here</a></h1>
-    </div>
-</body>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Home</title>
+        <script src = "js/home.js" defer></script>
+        <link rel = "stylesheet" href = "css/home.css">
+        <link rel = "icon" href = "img/icon.png">
+    </head>
+    <body>
+        <header>
+            <h1></h1>
+            <ul>
+                <li>About the Creator</li>
+                <li>Hall of Fame 👑</li>
+                <li>Report Bugs 🐛</li>
+                <li>Suggestions 💡</li>
+            </ul>
+        </header>
+
+        <main>
+            <div id = "center">
+                <section id = "settings">
+                    <div id = "filter">
+                        <h2>Filter by</h2>
+                        <select id = "filters">
+                            <option disabled selected> -- select an option -- </option>
+                            <option>Single-player</option>
+                            <option>Multi-player</option>
+                        </select>
+                        <div id = "filter-tags">Filters: </div>
+                    </div>
+
+                    <div id = "sort">
+                        <h2>Sort by</h2>
+                        <select id = "sort">
+                            <option disabled selected> -- select an option -- </option>
+                            <option>Newest</option>
+                            <option>Most played</option>
+                            <option>Alphabetical</option>
+                            <option>Ratings</option>
+                        </select>
+                    </div>
+
+                    <div id = "search">
+                        <input type = "text" placeholder = "Search Games">
+                        <img src = "img/search.png">
+                    </div>
+                </section>
+                <section id = "games">
+    
+                </section>
+            </div>
+    
+            <aside>
+                <div id = "sign-up">
+                    <h2>Sign up to set records!</h2>
+                    <form>
+                        <input type = "text" placeholder = "Username">
+                        <input type = "email" placeholder = "Email">
+                        <input type = "submit" value = "Sign Up">
+                    </form>
+                </div>
+
+                <div id = "login">
+                    <h2>Returning Users</h2>
+                    <form>
+                        <input type = "text" placeholder = "Username">
+                        <input type = "email" placeholder = "Email">
+                        <input type = "submit" value = "Login">
+                    </form>
+                </div>
+
+                <div id = "news">
+                    <h2>News/Updates</h2>
+                </div>
+            </aside>
+        </main>
+
+        <footer>
+            <ul>
+                <li>GitHub</li>
+                <li>More of my Websites</li>
+
+            </ul>
+        </footer>
+    </body>
 </html>
