@@ -78,7 +78,7 @@ aside div{
     margin-bottom: 3ch;
 }
 
-@media(min-width: 1000px){
+@media(min-width: 1060px){
     #settings div{
         display: flex;
         margin-top: 2ch;
@@ -162,6 +162,11 @@ aside input[type = "text"], aside input[type = "email"]{
     background-color: goldenrod;
     border-bottom: 1px solid gold;
     width: 75%;
+    border-radius: 0;
+}
+
+aside input[type = "text"]::placeholder, aside input[type = "email"]::placeholder{
+    color: rgb(90, 84, 84);
 }
 
 aside input[type = "text"]:focus, aside input[type = "email"]:focus{
@@ -173,6 +178,7 @@ aside input[type="submit"]{
     background-color: gold;
     font-size: 1.3rem;
     cursor: pointer;
+    color: black;
 }
 
 #news{
@@ -199,4 +205,14 @@ aside input[type="submit"]{
     margin: 2em;
     width: 20%;
     height: 25%;
+}
+
+#news ul{
+    list-style-type: "\1F514";
+    color:rgb(10, 55, 92);
+    font-size: 1.2rem;
+}
+
+#new ul li{
+    color: white;
 }
