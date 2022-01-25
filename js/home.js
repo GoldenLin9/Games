@@ -31,24 +31,25 @@ setInterval(glow, glowTime);
 
 class Game{
 
-    constructor(dateCreated, mode, name, thumbnail){
+    constructor(dateCreated, mode, name, thumbnail, gameLink){
         this.date = dateCreated;
         this.mode = mode;
         this.name = name;
         this.thumbnail = thumbnail;
+        this.link = gameLink;
         games.push(this);
     }
 }
 
-let minesweeper = new Game("January 10, 2022", "single", "Minesweeper", "../img/mine-thumb.PNG");
-let connect4 = new Game("January 7 2022", "multi", "Connect4", "../img/connect4-thumb.PNG");
+let minesweeper = new Game("January 10, 2022", "single", "Minesweeper", "../img/mine-thumb.PNG", "../Minesweeper.html");
+let connect4 = new Game("January 7 2022", "multi", "Connect 4", "../img/connect4-thumb.PNG", "../Connect4.html");
 
 for(let game of games){
     let container = document.createElement("div");
     container.setAttribute("class", "containers")
 
     let anchor = document.createElement("a");
-    anchor.setAttribute("href", `../${game.name}.html`)
+    anchor.setAttribute("href", game.link)
 
     let img = document.createElement("img");
     img.setAttribute("src", game.thumbnail);
