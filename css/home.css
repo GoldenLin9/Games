@@ -235,4 +235,7 @@ aside input[type="submit"]{
     margin-left: 1ch;
     color: pink;
     font-weight: 900;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
