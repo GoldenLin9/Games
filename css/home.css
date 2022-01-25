@@ -74,8 +74,9 @@ aside div{
     background-color: gold;
     margin: 0 auto;
     border-radius: 3rem;
-    margin-top: 3ch;
+    margin-top: 5ch;
     margin-bottom: 3ch;
+    display: flex;
 }
 
 @media(min-width: 1060px){
@@ -141,8 +142,11 @@ main{
 #filter-tags{
     position: absolute;
     bottom: 0;
-    transform: translateY(100%);
+    transform: translateY(120%);
     color: grey;
+    white-space:nowrap;
+    display: flex;
+    align-items: center;
 }
 
 aside h2{
@@ -192,10 +196,6 @@ aside input[type="submit"]{
     cursor: pointer;
 }
 
-#games{
-    display: flex;
-}
-
 .gameNames{
     text-align: center;
     font-weight: 900;
@@ -216,4 +216,22 @@ aside input[type="submit"]{
 
 #new ul li{
     color: white;
+}
+
+.tag{
+    border: 2px dotted darkslategrey;
+    box-sizing: border-box;
+    margin: 0ch 1ch;
+    padding: 0.2ch;
+}
+
+#x{
+    height: 100%;
+    background-color: grey;
+    opacity: 0.75;
+    cursor: pointer;
+    border-radius: 30%;
+    margin-left: 1ch;
+    color: pink;
+    font-weight: 900;
 }
