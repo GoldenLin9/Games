@@ -109,6 +109,7 @@ aside div{
 #search input[type="text"]{
     border-radius: 1em;
     padding: 0.25em;
+    z-index: 1;
 }
 
 #search{
