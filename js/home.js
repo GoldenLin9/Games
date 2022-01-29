@@ -38,9 +38,9 @@ setInterval(glow, glowTime);
 
 class Game{
 
-    constructor(dateCreated, mode, name, thumbnail, gameLink){
+    constructor(dateCreated, filter, name, thumbnail, gameLink){
         this.date = dateCreated;
-        this.mode = mode;
+        this.filter = filter;
         this.name = name;
         this.thumbnail = thumbnail;
         this.link = gameLink;
@@ -48,8 +48,8 @@ class Game{
     }
 }
 
-let minesweeper = new Game("January 10, 2022", "single", "Minesweeper", "../img/mine-thumb.PNG", "../Minesweeper.html");
-let connect4 = new Game("January 7 2022", "multi", "Connect 4", "../img/connect4-thumb.PNG", "../Connect4.html");
+let minesweeper = new Game("January 10, 2022", {competitive: "comp", mode: "single"}, "Minesweeper", "../img/mine-thumb.PNG", "../Minesweeper.html");
+let connect4 = new Game("January 7 2022", {competitive: "not comp", mode: "multi"}, "Connect 4", "../img/connect4-thumb.PNG", "../Connect4.html");
 
 function displayContent(array){
 
@@ -86,17 +86,20 @@ displayContent(games);
 
 let gamesCopy = games.map(thing => thing);
 function displayOrder(operation){ // filter arrays using switch and passing new array
-
     switch(operation){
+
         case "filter":
-            for(let r = 0; r < games.length; r++){
-                if(allFilters.includes(games[r].mode) && !(gamesCopy.includes(games[r]))){
-                    gamesCopy.push(games[r])
-                } else if(!(allFilters.includes(games[r].mode) && gamesCopy.includes(games[r]))){
-                    gamesCopy.splice(gamesCopy.indexOf(games[r]), 1);
+            for(let game of games){
+                gameFilters = Object.values(game.filter);
+
+                if(allFilters.some(filter=> gameFilters.includes(filter)) && !(gamesCopy.includes(game))){
+                    gamesCopy.push(game)
+                } else if(!(allFilters.some(filter=> gameFilters.includes(filter))) && gamesCopy.includes(game)){
+                    gamesCopy.splice(gamesCopy.indexOf(game), 1);
                 }
             }
             break;
+
         case "new":
             gamesCopy.sort((f,s)=>{ //Date bigger dates are > smaller and we want big
                 if(new Date(f.date) > new Date(s.date)){ //newer
@@ -106,6 +109,7 @@ function displayOrder(operation){ // filter arrays using switch and passing new 
                 }
             });
             break;
+
         case "alphabetical":
             gamesCopy.sort((a,b)=> (a.name === b.name) ? 0: (a.name > b.name) ? 1: -1);
             break;
@@ -131,7 +135,6 @@ filters.addEventListener("change", ()=>{
                 let deletedItem = document.querySelector(`#filter-tags span:nth-child(${spanCount})`);
                 allFilters.pop();
                 displayOrder("filter");
-                displayOrder(sort.value);
                 deletedItem.remove();
             })
             btn.setAttribute("id", "x");
@@ -142,7 +145,6 @@ filters.addEventListener("change", ()=>{
         }
         allFilters.push(filters.value);
         displayOrder("filter");
-        displayOrder(sort.value);
     }
 });
 
