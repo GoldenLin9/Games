@@ -2,7 +2,6 @@ let header = document.querySelector("header h1");
 const title = "Golden Games";
 let count = 0;
 const glowTime = 125;
-document.documentElement.style.setProperty("--navItems", document.querySelectorAll("header ul li").length);
 const games = [];
 const gameDisplay = document.querySelector("#games");
 const filters = document.querySelector("#filters");
@@ -12,6 +11,46 @@ const allFilters = [];
 const searchBtn = document.querySelector("#search button");
 const search = document.querySelector("#search");
 const searchBox = document.querySelector("#searchBox");
+
+const aside = document.querySelector("aside");
+const main = document.querySelector("main")
+
+function displayAside(){
+    let side = document.createElement("div");
+    let x = document.createElement("img");
+
+    x.setAttribute("id", "sideX");
+    x.setAttribute("src", "img/x.png")
+    side.setAttribute("id", "side");
+
+    side.append(x);
+    side.append(aside);
+    document.querySelector("body").append(side);
+
+    x.addEventListener("click", ()=>{
+        document.querySelector("#side").remove();
+    })
+}
+
+window.addEventListener("resize", ()=>{
+    if(window.matchMedia("(max-width: 700px)").matches && main.contains(aside)){
+        filters.options[0].textContent = "";
+        sort.options[0].textContent = ""
+        aside.remove();
+        if(!(search.querySelector("#hamburger"))){
+            let hamburger = document.createElement("button");
+            hamburger.setAttribute("id", "hamburger");
+            document.querySelector("#center").append(hamburger);
+            hamburger.addEventListener("click", displayAside)
+        }
+    } else if(window.matchMedia("(min-width:701px)").matches && !(main.contains(aside))){ // >680px and 
+        filters.options[0].textContent = " -- select an option -- ";
+        sort.options[0].textContent = " -- select an option -- "
+        main.append(aside);
+        document.querySelector("#hamburger").remove();
+
+    }
+})
 
 for(let letter of title){
     let single = document.createElement("span");
@@ -187,7 +226,7 @@ function displayGames(e){
             if(!(notFound)){ // if not appended the not found sign
                 let notFound = document.createElement("div");
                 notFound.setAttribute("id", "notFound");
-                notFound.innerHTML = `<strong>Sorry, no match found</Strong>`;
+                notFound.innerHTML = `<strong>Not found</Strong>`;
                 searchBox.append(notFound);
             }
         } else{ //if there are games
