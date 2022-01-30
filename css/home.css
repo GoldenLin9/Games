@@ -1,11 +1,12 @@
 :root{
-    --navItems: 4;
     --borderColor: red;
 }
 body{
     background-color: goldenrod;
     margin: 0;
-    overflow: hidden;
+    width: 100vw;
+    height: 100vh;
+    overflow-x: hidden;
 }
 
 header h1{
@@ -20,10 +21,9 @@ header h1 span{
 }
 
 header ul{
-    display: grid;
+    display: flex;
     list-style-type: none;
     padding: 0;
-    grid-template-columns: repeat(var(--navItems), 1fr);
     margin: 0;
 }
 
@@ -38,11 +38,11 @@ header li{
     align-items: center;
     cursor: pointer;
     padding: 0.25em;
+    flex: 1 1 auto;
 }
 
 main{
-    display: grid;
-    grid-template-columns: 3fr 1fr;
+    display: flex;
 }
 
 aside{
@@ -63,15 +63,9 @@ aside div{
     color: blue;
 }
 
-#settings{
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-}
-
 #games{
     width: 90%;
-    height: 50vh;
+    height: 65vh;
     background-color: gold;
     margin: 0 auto;
     border-radius: 3rem;
@@ -79,20 +73,6 @@ aside div{
     margin-bottom: 3ch;
     display: flex;
     flex-wrap: wrap;
-}
-
-@media(min-width: 1060px){
-    header li{
-        font-size: 1.7rem;
-    }
-
-    #settings{
-        justify-content: flex-end;
-    }
-
-    #games{
-        height: 65vh;
-    }
 }
 
 #settings div{
@@ -105,10 +85,14 @@ h2 + select{
 }
 
 #settings{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
     width: fit-content;
     margin-left: auto;
     margin-right: 2ch;
-    margin-top: 2ch;
+    margin-top: 3ch;
+    justify-content: flex-end;
 }
 
 #search input[type="text"]{
@@ -116,6 +100,7 @@ h2 + select{
     padding: 0.4em;
     height: 30px;
     box-sizing: border-box;
+    width: 120px;
 }
 
 #search{
@@ -127,7 +112,6 @@ h2 + select{
 #search button{
     width: 30px;
     height: 30px;
-    z-index: 2;
     cursor: pointer;
     background-image: url("../img/search.png");
     background-size: cover;
@@ -141,6 +125,7 @@ h2 + select{
 option, select{
     cursor: pointer;
     padding: 0.25em;
+
 }
 
 main{
@@ -150,6 +135,7 @@ main{
 #filter{
     position: relative;
     display: flex;
+    align-items: center;
 }
 
 #filter-tags{
@@ -160,6 +146,15 @@ main{
     white-space:nowrap;
     display: flex;
     align-items: center;
+}
+
+#center{
+    position: relative;
+    flex: 5 1 auto;
+}
+
+aside{
+    flex: 1 1 auto;
 }
 
 aside h2{
@@ -263,10 +258,12 @@ aside input[type="submit"]{
 
 #notFound{
     text-align: center;
+    white-space: pre-wrap;
 }
 
 #sort-container{
     display: flex;
+    align-items: center;
 }
 
 #searchBox a{
@@ -292,4 +289,61 @@ footer ul{
     padding: 0;
     justify-content: space-around;
     align-items: center;
+}
+
+#hamburger{
+    position: absolute;
+    top: 3px;
+    right: 15px;
+    width: 30px;
+    height: 30px;
+    background-image: url(../img/hamburger.png);
+    background-size: cover;
+    border: none;
+    background-color: goldenrod;
+    cursor: pointer;
+}
+
+#side{
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 50vw;
+    min-height: 100vh;
+    background-color: goldenrod;
+}
+
+#sideX{
+    width: 30px;
+    height: 30px;
+    margin-left: auto;
+    display: block;
+}
+
+@media(max-width: 700px){
+    #settings h2{
+        font-size: 1rem;
+    }
+
+    #sort-container, #filter{
+        display: block;
+    }
+
+    #settings{
+        margin-top: 4ch;
+    }
+
+    aside, aside div{
+        border: none;
+    }
+}
+
+@media(min-width: 1060px){
+    header li{
+        font-size: 1.7rem;
+    }
+
+    #settings{
+        justify-content: flex-end;
+    }
 }
