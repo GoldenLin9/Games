@@ -150,7 +150,7 @@ main{
 
 #center{
     position: relative;
-    flex: 2 1 auto;
+    flex-grow: 2;
 }
 
 aside{
