@@ -346,7 +346,9 @@ footer ul{
     #settings{
         justify-content: flex-end;
     }
-    
+}
+
+@media(min-width: 1400px){
     #center{
         flex: 5 1 auto;
     }
