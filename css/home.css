@@ -350,6 +350,6 @@ footer ul{
 
 @media(max-width: 1060px){
     aside{
-        flex-basis: 40%;
+        width: 35vw;
     }
 }
