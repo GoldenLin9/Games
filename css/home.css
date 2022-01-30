@@ -311,6 +311,7 @@ footer ul{
     width: 50vw;
     min-height: 100vh;
     background-color: goldenrod;
+    border-left: 1px solid var(--borderColor);
 }
 
 #sideX{
@@ -335,16 +336,6 @@ footer ul{
 
     aside, aside div{
         border: none;
-    }
-}
-
-@media(min-width: 1060px){
-    header li{
-        font-size: 1.7rem;
-    }
-
-    #settings{
-        justify-content: flex-end;
     }
 }
 
