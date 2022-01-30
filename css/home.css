@@ -347,9 +347,3 @@ footer ul{
         justify-content: flex-end;
     }
 }
-
-@media(max-width: 1060px){
-    #center{
-        flex: 2 1 auto;
-    }
-}
