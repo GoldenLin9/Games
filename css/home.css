@@ -150,11 +150,11 @@ main{
 
 #center{
     position: relative;
-    flex: 1 1 50%;
+    flex: 1 1 70%;
 }
 
 aside{
-    flex: 1 1 50%;
+    flex: 1 1 30%;
 }
 
 aside h2{
