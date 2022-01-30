@@ -150,7 +150,7 @@ main{
 
 #center{
     position: relative;
-    flex: 4 1 auto;
+    flex: 5 1 auto;
 }
 
 aside{
@@ -345,5 +345,11 @@ footer ul{
 
     #settings{
         justify-content: flex-end;
+    }
+}
+
+@media(max-width: 1060px){
+    #center{
+        flex: 2 1 auto;
     }
 }
