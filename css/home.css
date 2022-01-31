@@ -344,6 +344,12 @@ html{
     aside, aside div{
         border: none;
     }
+
+    aside input[type = "text"]:focus, aside input[type = "email"]:focus{
+        outline: none;
+        font-size: 1rem;
+    }
+
 }
 
 @media(min-width: 1400px){
