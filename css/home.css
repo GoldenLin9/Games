@@ -1,11 +1,12 @@
 :root{
     --borderColor: red;
 }
+
 body{
     background-color: goldenrod;
     margin: 0;
     width: 100vw;
-    height: 100vh;
+    min-height: 100vh;
     overflow-x: hidden;
 }
 
@@ -304,14 +305,20 @@ footer ul{
     cursor: pointer;
 }
 
+html{
+    position: relative;
+}
+
 #side{
     position: absolute;
     top: 0;
     right: 0;
-    width: 50vw;
-    min-height: 100vh;
+    bottom: 0;
+    left: 50%;
     background-color: goldenrod;
     border-left: 1px solid var(--borderColor);
+    flex-grow: 1;
+    height: 100%;
 }
 
 #sideX{
