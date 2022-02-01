@@ -9,7 +9,8 @@ const vegetables = ["carrot", "broccoli", "cabbage", "asparagus", "cauliflower",
 const expressions = ["busy as bee", "better late", "sticks out like a sore thumb", "absence makes the heart grow fonder", "practice makes perfect", "blood is thicker than water", "easy as pie", "fish out of water", "last but not least", "raining cats and dogs"];
 const vehicles = ["motorcycle", "airplane", "truck", "steamboat", "train", "bus", "car", "bicycle", "skateboard", "electric scooter"];
 const instruments = ["trumpet", "saxophone", "guitar", "piano", "trombone", "flute", "clarinet", "cow bell", "keyboard", "drums"];
-const categories = [[fruits, "fruits"], [vegetables, "vegetables"], [expressions, "expressions"], [vehicles, "vehicles"], [instruments, "instruments"], [celebrities, "celebrities"], [colors, "colors"], [clothing, "clothing"], [seaAnimals, "seaAnimals"], [countries, "countries"]];
+const teachers = ["Sinclair", "Distler", "Bravim", "Ortiz", "Ziontz", "Louy", "Chavez", "Lawler", "Davis", "Fasullo"]
+const categories = [[fruits, "fruits"], [vegetables, "vegetables"], [expressions, "expressions"], [vehicles, "vehicles"], [instruments, "instruments"], [celebrities, "celebrities"], [colors, "colors"], [clothing, "clothing"], [seaAnimals, "seaAnimals"], [countries, "countries"], [teachers, "teachers"]];
 let word;
 let category;
 let pair;
