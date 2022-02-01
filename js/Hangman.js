@@ -51,10 +51,13 @@ function endGame(condition){
     let container = document.querySelector("body");
     let box = document.createElement("div");
     let text = document.createElement("h1");
+    let text2 = document.createElement("h1");
     box.setAttribute("id", "box");
 
     if(condition === "lose"){
         text.append("YOU LOST! BECAUSE OF YOU, HANGMAN IS NOW DEAD. GO BACK TO FIRST GRADE YOU ILLITERATE LOSER.");
+        text2.append("Correct word: "+word);
+        text2.style.color = "red";
         text.style.color = "red";
     } else if(condition === "win"){
         text.append("CONGRATULATIONS, YOU SAVED HANGMAN!");
