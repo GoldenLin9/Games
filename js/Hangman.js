@@ -2,15 +2,14 @@ const colors = ["orange", "indigo", "magenta", "silver", "teal", "yellow", "purp
 const clothing = ["sweatshirt", "jacket", "scarf", "turtleneck", "pants", "shoes", "shorts", "dress", "skirt", "socks"];
 const seaAnimals = ["octopus", "shark", "squid", "puffer fish", "starfish", "lionfish", "manatee", "sea urchin", "lobster"];
 const countries = ["Venezuela", "Uruguay", "Canada", "Czechoslovakia", "Germany", "Singapore", "Belarus", "Paraguay", "Guatemala", "Taiwan"];
-const celebrities = ["Tom Cruise", "Brad Pitt", "Leonardo DiCaprio", "Angelina Jolie", "Jennifer Aniston", "Taylor Swift", "Kourtney Kourtney", "Emma Stone", "Steve Carell", "Johnny Depp"];
+const celebrities = ["Tom Cruise", "Brad Pitt", "Leonardo DiCaprio", "Angelina Jolie", "Jennifer Aniston", "Taylor Swift", "Kourtney Kardashian", "Emma Stone", "Steve Carell", "Johnny Depp"];
 const letters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
 const fruits = ["strawberry", "pineapple", "grapefruit", "mango", "papaya", "blueberry", "pomegranate", "avocado", "watermelon", "cantaloupe"];
 const vegetables = ["carrot", "broccoli", "cabbage", "asparagus", "cauliflower", "brussels sprout", "arugula", "celery", "artichoke", "mushroom"];
-const expressions = ["busy as bee", "better late", "sticks out like a sore thumb", "absence makes the heart grow fonder", "practice makes perfect", "blood is thicker than water", "easy as pie", "fish out of water", "last but not least", "raining cats and dogs"];
+const expressions = ["busy as bee", "better late than never", "sticks out like a sore thumb", "absence makes the heart grow fonder", "practice makes perfect", "blood is thicker than water", "easy as pie", "fish out of water", "last but not least", "raining cats and dogs"];
 const vehicles = ["motorcycle", "airplane", "truck", "steamboat", "train", "bus", "car", "bicycle", "skateboard", "electric scooter"];
 const instruments = ["trumpet", "saxophone", "guitar", "piano", "trombone", "flute", "clarinet", "cow bell", "keyboard", "drums"];
-const teachers = ["Sinclair", "Distler", "Bravim", "Ortiz", "Ziontz", "Louy", "Chavez", "Lawler", "Davis", "Fasullo"];
-const categories = [[fruits, "fruits"], [vegetables, "vegetables"], [expressions, "expressions"], [vehicles, "vehicles"], [instruments, "instruments"], [celebrities, "celebrities"], [colors, "colors"], [clothing, "clothing"], [seaAnimals, "seaAnimals"], [countries, "countries"], [teachers, "teachers"]];
+const categories = [[fruits, "fruits"], [vegetables, "vegetables"], [expressions, "expressions"], [vehicles, "vehicles"], [instruments, "instruments"], [celebrities, "celebrities"], [colors, "colors"], [clothing, "clothing"], [seaAnimals, "seaAnimals"], [countries, "countries"]];
 let word;
 let category;
 let pair;
@@ -27,12 +26,18 @@ function newWord(){
 }
  
 function guess(){//split between spaces and make words
-   for(let i = 0; i< word.length; i++){
-       let block = document.createElement("div");
-       block.textContent = `${word[i]}`;
-       block.setAttribute("class", "block");
-       guessBank.appendChild(block);
-   }
+
+    for(let part of word.split(" ")){
+        let container = document.createElement("div");
+        for(let letter of Array.from(part)){
+            let mini = document.createElement("div");
+            mini.textContent = letter;
+            mini.setAttribute("class", "block");
+            container.append(mini);
+        }
+        guessBank.append(container);
+        container.setAttribute("class", "container");
+    }    
 }
  
 function alpha(){
@@ -55,19 +60,27 @@ function endGame(condition){
     let text2 = document.createElement("h1");
     box.setAttribute("id", "box");
 
+
     if(condition === "lose"){
-        text.append("YOU LOST! BECAUSE OF YOU, HANGMAN IS NOW DEAD. GO BACK TO FIRST GRADE YOU ILLITERATE LOSER.");
-        text2.append("Correct word: "+word);
-        text2.style.color = "red";
+        text.textContent = "YOU LOST! BECAUSE OF YOU, HANGMAN IS NOW DEAD. GO BACK TO FIRST GRADE YOU ILLITERATE LOSER.";
         text.style.color = "red";
+        text2.textContent = `Correct Answer: ${word}`
+        text2.style.color = "red";
     } else if(condition === "win"){
-        text.append("CONGRATULATIONS, YOU SAVED HANGMAN!");
+        text.textContent = "CONGRATULATIONS, YOU SAVED HANGMAN!";
         text.style.color = "lawngreen";
     }
 
+
+    box.append(text);
+    box.append(text2)
+    container.append(box);
+
     let restart = document.querySelector("button");
     restart.textContent = "PLAY AGAIN";
+    restart.style.margin = "2em";
     restart.style.backgroundColor = "gold";
+    restart.style.cursor = "pointer";
     restart.addEventListener("click", ()=>{
         let box = document.querySelector("#box");
         box.remove();
@@ -88,10 +101,11 @@ function endGame(condition){
             a.remove();
         }
 
-        let blocks = document.querySelectorAll(".block");
-        for(let a of blocks){
+        let container = document.querySelectorAll(".container");
+        for(let a of container){
             a.remove();
         }
+
         guess();
 
         while(letterBank.firstChild){
@@ -102,32 +116,25 @@ function endGame(condition){
         lives = bodyParts.length;
     });
     
-    box.append(text);
     box.append(restart);
-    container.append(box);
 }
 
 function win(){ //spaghetti
-    guessBank = document.querySelector("#guess");
-    let count = 0
-    for(let letter of guessBank.children){
-        console.log(letter.getAttribute("color"));
-        if(letter.style.color === "black"){
-            count += 1;
+    let allBlocks = document.querySelectorAll(".block");
+
+    for(let block of allBlocks){
+        if(block.style.color !== "black"){
+            return false; 
         }
     }
-    if(count === word.length){
-        return true;
-    } else{
-        console.log(count);
-        return false;
-    }
+
+    return true;
+
 }
  
 letterBank.addEventListener("click", (e)=>{
     if(e.target.getAttribute("class") === "letter"){
         let blocks = document.querySelectorAll("#guess .block");
-        console.log(String(e.target.textContent));
         let match = false
         for(let block of blocks){
             if(block.textContent === String(e.target.textContent).toLowerCase() || block.textContent === String(e.target.textContent).toUpperCase()){
@@ -170,3 +177,4 @@ letterBank.addEventListener("click", (e)=>{
         }
     }
 });
+
