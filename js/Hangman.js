@@ -60,9 +60,9 @@ function endGame(condition){
     let text2 = document.createElement("h1");
     box.setAttribute("id", "box");
 
-
+//YOU LOST! BECAUSE OF YOU, HANGMAN IS NOW DEAD. GO BACK TO FIRST GRADE YOU ILLITERATE LOSER.
     if(condition === "lose"){
-        text.textContent = "YOU LOST! BECAUSE OF YOU, HANGMAN IS NOW DEAD. GO BACK TO FIRST GRADE YOU ILLITERATE LOSER.";
+        text.textContent = "YOU LOST, BOO HOO!";
         text.style.color = "red";
         text2.textContent = `Correct Answer: ${word}`
         text2.style.color = "red";
