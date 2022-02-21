@@ -236,5 +236,8 @@ window.addEventListener("resize", ()=>{
 })
 
 window.addEventListener("resize", ()=>{
-    window.location.reload();
+    canvas.height = window.innerHeight * (0.75);
+    canvas.width = (window.innerHeight * (0.75)/hLines) * vLines;
+    blockSize = width/vLines;
+    banner.style.width = `${width}px`;
 })
