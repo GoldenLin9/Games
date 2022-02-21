@@ -6,8 +6,8 @@ const button = document.querySelector("#icon-container");
 
 const vLines = 7; // blocks in x-axis
 const hLines = 11; // blocks in y-axis
-const height = canvas.height = window.innerHeight * (0.75);
-const width = canvas.width = (window.innerHeight * (0.75)/hLines) * vLines;
+let height = canvas.height = window.innerHeight * (0.75);
+let width = canvas.width = (window.innerHeight * (0.75)/hLines) * vLines;
 banner.style.width = `${width}px`;
 
 let bg = ["img/land.jpg", "img/sky.jpg", "img/space.jpg", "img/outerSpace.jpg"];
@@ -15,7 +15,7 @@ let currLvl = 1;
 let score;
 let blockCount = 3;
 let blocks = [];
-const blockSize = width/vLines;
+let blockSize = width/vLines;
 let points = 0;
 let dragLvl = 8; 
 let dragged = 0;
@@ -102,7 +102,6 @@ function draw(timeStamp){
         }
         looped ++;
     }
-    console.log(looped);
 
     for(let block of blocks){
         drawBlock(block.pos, hLines - block.lvl);
@@ -228,16 +227,8 @@ canvas.addEventListener("click", ()=>{
 button.addEventListener("click", begin)
 
 window.addEventListener("resize", ()=>{
-    canvas.height = window.innerHeight * (0.75);
-    canvas.width = (window.innerHeight * (0.75)/hLines) * vLines;
-    background();
-    lines();
-    draw();
-})
-
-window.addEventListener("resize", ()=>{
-    canvas.height = window.innerHeight * (0.75);
-    canvas.width = (window.innerHeight * (0.75)/hLines) * vLines;
+    height = canvas.height = window.innerHeight * (0.75);
+    width = canvas.width = (window.innerHeight * (0.75)/hLines) * vLines;
     blockSize = width/vLines;
     banner.style.width = `${width}px`;
-})
+});
