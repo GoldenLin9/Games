@@ -74,9 +74,11 @@ function background(){
     drawBackground(bottomBackground, [0, ((dragLvl-1) * dragged) % hLines]);
 }
 
+let timePassed;
 let rate = startingRate; //moves 1 block every __ ms //higher rate doesn't do fast left & right glitch, lower = more prone to fast glitch
 let looped = 0;
 function draw(timeStamp){
+    timePassed = timeStamp;
     background();
     lines();
 
@@ -89,7 +91,6 @@ function draw(timeStamp){
             blocks.push(block);
         }
 
-        looped = 1;
     } else if(timeStamp >= looped * rate){
         for(let block of blocks){
             if(blocks.indexOf(block) === 0 && (block.pos + block.vel > (vLines-1) || block.pos + block.vel < -(blockCount-1))){
@@ -101,6 +102,7 @@ function draw(timeStamp){
         }
         looped ++;
     }
+    console.log(looped);
 
     for(let block of blocks){
         drawBlock(block.pos, hLines - block.lvl);
@@ -133,7 +135,6 @@ function drag(){
 }
 
 function place(){
-    cancelAnimationFrame(rAf);
 
     for(let block of blocks){
         if(block.pos >= 0 && block.pos <= vLines-1){
@@ -163,6 +164,7 @@ function place(){
 
     if(points % 11 === 0 && points < 3 * hLines){
         rate = startingRate;
+        looped = Math.floor(timePassed/rate);
         blockCount = Math.min(3- (points/hLines), blockCount);
     } else if(points >= 3 * hLines){
         rate *= 0.95;
@@ -172,10 +174,7 @@ function place(){
     }
 
     blocks.length = 0;
-    currLvl++;
-    looped = 0;
-
-    draw();
+    currLvl++; 
 }
 
 function begin(){
@@ -206,6 +205,7 @@ function end(){
     button.style.display = "grid";
     document.querySelector("#icon").setAttribute("class", "fa-solid fa-arrow-rotate-right")
     canvas.style.filter = "blur(1px)";
+    looped = 0;
 }
 
 window.addEventListener("keydown", (e)=>{
