@@ -164,7 +164,7 @@ function place(){
 
     if(points % 11 === 0 && points < 3 * hLines){
         rate = startingRate;
-        looped = Math.floor(timePassed/rate);
+        looped = Math.ceil(timePassed/rate);
         blockCount = Math.min(3- (points/hLines), blockCount);
     } else if(points >= 3 * hLines){
         rate *= 0.95;
@@ -205,7 +205,7 @@ function end(){
     button.style.display = "grid";
     document.querySelector("#icon").setAttribute("class", "fa-solid fa-arrow-rotate-right")
     canvas.style.filter = "blur(1px)";
-    looped = 0;
+    looped = 1;
 }
 
 window.addEventListener("keydown", (e)=>{
