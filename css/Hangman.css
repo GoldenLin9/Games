@@ -162,10 +162,6 @@ body{
     border-bottom: 3px dashed black;
  }
 
- #wrong{
-    overflow: scroll;
- }
-
  .wrongs{
     background-color: red;
     font-size: 2rem;
