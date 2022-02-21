@@ -230,4 +230,7 @@ button.addEventListener("click", begin)
 window.addEventListener("resize", ()=>{
     canvas.height = window.innerHeight * (0.75);
     canvas.width = (window.innerHeight * (0.75)/hLines) * vLines;
+    background();
+    lines();
+    draw();
 })
