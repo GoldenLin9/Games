@@ -1,11 +1,12 @@
 :root{
     --borderColor: red;
 }
+
 body{
     background-color: goldenrod;
     margin: 0;
     width: 100vw;
-    height: 100vh;
+    min-height: 100vh;
     overflow-x: hidden;
 }
 
@@ -150,11 +151,11 @@ main{
 
 #center{
     position: relative;
-    flex: 5 1 auto;
+    flex: 1 1 70%;
 }
 
 aside{
-    flex: 1 1 auto;
+    flex: 1 1 30%;
 }
 
 aside h2{
@@ -304,13 +305,20 @@ footer ul{
     cursor: pointer;
 }
 
+html{
+    position: relative;
+}
+
 #side{
     position: absolute;
     top: 0;
     right: 0;
-    width: 50vw;
-    min-height: 100vh;
+    bottom: 0;
+    left: 50%;
     background-color: goldenrod;
+    border-left: 1px solid var(--borderColor);
+    flex-grow: 1;
+    height: 100%;
 }
 
 #sideX{
@@ -336,14 +344,20 @@ footer ul{
     aside, aside div{
         border: none;
     }
-}
 
-@media(min-width: 1060px){
-    header li{
-        font-size: 1.7rem;
+    aside input[type = "text"]:focus, aside input[type = "email"]:focus{
+        outline: none;
+        font-size: 1rem;
     }
 
-    #settings{
-        justify-content: flex-end;
+}
+
+@media(min-width: 1400px){
+    #center{
+        flex: 5 1 auto;
+    }
+
+    aside{
+        flex: 1 1 auto;
     }
 }

@@ -85,7 +85,7 @@ main{
 }
 
 #btn:active{
-    transform: scale(0.75);
+    transform: scale(0.95);
 }
 
 #flagBox{
@@ -191,7 +191,7 @@ option{
 }
 
 #themes{
-    background-color: forestgreen;
+    background-color: grey;
 }
 
 header ul{

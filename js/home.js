@@ -89,6 +89,7 @@ class Game{
 
 let minesweeper = new Game("January 10, 2022", {competitive: "comp", mode: "single"}, "Minesweeper", "../img/mine-thumb.PNG", "../Minesweeper.html");
 let connect4 = new Game("January 7 2022", {competitive: "not comp", mode: "multi"}, "Connect 4", "../img/connect4-thumb.PNG", "../Connect4.html");
+let hangman = new Game("February 1 2022", {competitive: "comp", mode: "single"}, "Hangman", "../img/connect4-thumb.PNG", "../Hangman.html");
 
 function displayContent(array){
 

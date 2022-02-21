@@ -17,8 +17,8 @@ let hBlockMultiplier = 0.75;
 let vBlockMultiplier = 1.8;
 const mql = window.matchMedia("(min-height: 830px)");
 const mql2 = window.matchMedia("(orientation:portrait)");
-let BGcolor1 = "rgb(67, 176, 71)";
-let BGcolor2 = "rgb(251, 208, 0)";
+let BGcolor1 = "rgb(189, 189, 189)";
+let BGcolor2 = "rgb(189, 189, 189)";
 
 let startTime;
 let stopwatch;
@@ -99,8 +99,7 @@ function timer(){
     time.textContent = `${minutes}:${seconds}:${milliseconds}`;
 }
 
-document.querySelector("html").style.backgroundColor = "brown";
-document.querySelector("html").style.backgroundImage = `url(../img/marioB.jpg)`;
+document.querySelector("html").style.backgroundColor = "rgb(189, 189, 189)";
 
 themes.addEventListener("change", ()=>{
     let selected = themes.selectedOptions[0]
@@ -530,7 +529,7 @@ function color(e){
 }
 
 rating = document.querySelector("header ul li:nth-child(2)");
-stars = 5;
+const stars = 5;
 for(let star = 1; star <= stars; star++){
     let img = document.createElement("img");
     img.setAttribute("src", "img/black-star.png");
