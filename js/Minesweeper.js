@@ -529,7 +529,7 @@ function color(e){
 }
 
 rating = document.querySelector("header ul li:nth-child(2)");
-stars = 5;
+const stars = 5;
 for(let star = 1; star <= stars; star++){
     let img = document.createElement("img");
     img.setAttribute("src", "img/black-star.png");
