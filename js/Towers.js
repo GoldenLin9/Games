@@ -234,3 +234,7 @@ window.addEventListener("resize", ()=>{
     lines();
     draw();
 })
+
+window.addEventListener("resize", ()=>{
+    window.location.reload();
+})
