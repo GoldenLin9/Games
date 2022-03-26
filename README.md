@@ -1,2 +1,2 @@
 # Games
-Website for games since the school decides block all game content: https://goldens-games.netlify.app/
+Collection of my favorite games: https://goldens-games.netlify.app/
