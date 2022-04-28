@@ -9,6 +9,7 @@ const hLines = 11; // blocks in y-axis
 let height = canvas.height = window.innerHeight * (0.75);
 let width = canvas.width = (window.innerHeight * (0.75)/hLines) * vLines;
 banner.style.width = `${width}px`;
+let scores = []
 
 let bg = ["img/land.jpg", "img/sky.jpg", "img/space.jpg", "img/outerSpace.jpg"];
 let currLvl = 1;
@@ -205,6 +206,7 @@ function end(){
     document.querySelector("#icon").setAttribute("class", "fa-solid fa-arrow-rotate-right")
     canvas.style.filter = "blur(1px)";
     looped = 1;
+    scores.push(points)
 }
 
 window.addEventListener("keydown", (e)=>{
